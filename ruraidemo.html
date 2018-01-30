@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Autonomous vehicle route optimization in Lieksa, Finland</h1>
+<h3>Automated bus stem routes combined with autonomous cars fixing the "last mile problem" and revolutionizing MaaS in rural areas.</h3>    
+
+<div id="map" style="width:100%;height:600px;background:blue"></div>
+
+<!--GOOGLE MAPS INTEGRATION-->    
+<script>
+function myMap() {
+var mapOptions = {
+    center: new google.maps.LatLng(63.3, 30.0),
+    zoom: 10,
+    mapTypeId: google.maps.MapTypeId.HYBRID
+}
+var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+} 
+    
+var marker = new google.maps.Marker({
+          position: {lat: 63.349, lng: 29.903},
+          map: map,
+          title: 'Hello World!'
+        });
+          
+</script>
+    
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdNmwSmlCzbztI9UWhggP-ljFkZ_dvnrM&callback=initMap">
+    </script>   
+
+<!--TEST USER INFO FUNCTIONALITY-->    
+<h2>Test data for optimizing</h2>
+<h4>User, Pick-up coordinates, Time of pick-up</h4>    
+<div id="map" style="width:100%;height:100%;background:white">
+    
+<!--<div id="room_fileds">
+    <div class="content" id="wrapper1"> 
+        <span>Name of User: <input type="text" style="width:240px;" name="width[]" value="" /></span>
+        <span>Pick-up Address: <input type="text" style="width:240px;" namae="length[]" value="" /></span>
+        <span>Time of Pick-up: <input type="text" style="width:240px;" namae="length[]" value="" /></span>
+    </div>
+    <div class="content" id="wrapper2"> 
+        <span>Name of User: <input type="text" style="width:240px;" name="width[]" value="" /></span>
+        <span>Pick-up Address: <input type="text" style="width:240px;" namae="length[]" value="" /></span>
+        <span>Time of Pick-up: <input type="text" style="width:240px;" namae="length[]" value="" /></span>
+    </div>
+    <div class="content" id="wrapper3"> 
+        <span>Name of User: <input type="text" style="width:240px;" name="width[]" value="" /></span>
+        <span>Pick-up Address: <input type="text" style="width:240px;" namae="length[]" value="" /></span>
+        <span>Time of Pick-up: <input type="text" style="width:240px;" namae="length[]" value="" /></span>
+    </div>
+    <div class="content" id="wrapper4"> 
+        <span>Name of User: <input type="text" style="width:240px;" name="width[]" value="" /></span>
+        <span>Pick-up Address: <input type="text" style="width:240px;" namae="length[]" value="" /></span>
+        <span>Time of Pick-up: <input type="text" style="width:240px;" namae="length[]" value="" /></span>
+    </div>
+    </div> -->  
+    
+</div>  
+    
+<div id="ids" style="width:100%;height:100px"></div>       
+    
+<!--ADD ANOTHER TEST USER-->    
+<script>
+function add_fields() { 
+    var test_data = [
+        ['Matti',[' 63.20461, 29.52439'], " 10:00"],
+        ['Mikko',[' 63.361389, 29.773796'], " 10:05"],
+        ['Ahmed',[' 63.294391, 29.821389'], " 10:10"],
+        ['Roosa',[' 63.292777, 29.857966'], " 10:15"],
+        ['Tiina',[' 63.313795, 29.835135'], " 10:15"],
+        ['Verneri',[' 63.332698, 29.821102'], " 10:18"],
+        ['Kasimir',[' 63.347046, 29.780633'], " 10:21"],
+        ['Anttoni',[' 63.355633, 29.815995'], " 10:22"],
+        ['Samuel',[' 63.371148, 29.781094'], " 10:25"],
+        ['Anna',[' 63.369688, 29.726162'], " 10:27"],
+        ['Kaisa',[' 63.362277, 29.758674'], " 10:28"],
+        ['Ritva',[' 63.352677, 29.821588'], " 10:31"],
+        ['Pirkko',[' 63.347113, 29.890202'], " 10:35"],
+        ['Ismo',[' 63.342678, 29.863165'], " 10:37"],
+        ['Pertti',[' 63.339615, 29.871518'], " 10:40"],
+        ['Pete',[' 63.319526, 29.872977'], " 10:42"],
+        ['Kalle',[' 63.296320, 29.862801'], " 10:44"],
+        ['Heidi',[' 63.343609, 29.827610'], " 10:47"],
+        ['Jenni',[' 63.319496, 29.793106'], " 10:52"],
+        ['Venla',[' 63.338319, 29.765125'], " 10:58"]
+]
+    var ids = []
+    var optimized = [test_data[ids[1]], test_data[ids[3]], test_data[ids[2]], test_data[ids[0]]]
+    var printThis = "";
+    for(var i = 0; i < 4; i++){
+        var ran = ids.push(Math.floor((Math.random() * 20) + 1) - 1);
+        //printThis += "<br> "+(i+1);
+        printThis += "<br>"+test_data[ids[i]];
+    }
+    return printThis; // <-- to be printed to the div
+    for(var i = 0; i < 4; i++){
+        
+    }
+}
+document.getElementById('ids').innerHTML = add_fields();
+    
+</script> 
+    
+<!--OPTIMIZE AND CREATE ROUTE FUNCTIONALITY:--> 
+<div class="content" id="optimizefunc" style="width:100%;height:100%;background:white">
+<input type="button" id="optimize" onclick="optimize_route();" value="Optimize Route"/>        
+    </div>    
+    
+<script>
+function optimize_route() {
+    document.getElementById('optimizefunc').innerHTML += "<br>"+'The optimal route for the provided users is determined by aggregating data sources: users personalizations of the service, driving time, bus stem route matching time, capacity of the vehicle, accessibility';
+    
+    document.getElementById('optimizefunc').innerHTML += "<br>"+'The estimated total time of this test route is 0h 32min.';
+}
+</script> 
+    
+<div style="width:100%;height:100%;">
+<h2>Stem routes - an effective mobility model for automated traffic</h2>
+<h3>Based on what data were the automated bus stem routes calculated and formed? </h3>    
+<img src="heatmaplieksa.png" style="height:400px";> <img src="nykyiset_bussipysakit.png" style="height:400px" margin="30px";>
+<div>Highest population density areas and busiest traffic routes are combined to a same map (Image 1) to calculate Stem Routes that will function with quick intervals as the backbone of this new transport arrangement. The main problem is to get on-demand people-flow from the housing areas to the stem route. </div>  
+    
+</div>     
+
+<h3>Runkoreitti 1</h3>    
+<div style="width: 100%"><iframe width="100%" height="600" src="https://www.mapsdirections.info/en/draw-route-google-maps/myMap.php?route=95010&amp;width=100%&amp;height=600&amp;hl=en&amp;ie=UTF8&amp;t=&amp;z=13&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"><a href="https://www.mapsdirections.info/en/draw-route-google-maps/">Draw a route map</a> on <a href="https://www.mapsdirections.info/en/">Maps Directions</a></iframe></div><br />    
+    
+<h3>Runkoreitti 2</h3>
+<div style="width: 100%"><iframe width="100%" height="600" src="https://www.mapsdirections.info/en/draw-route-google-maps/myMap.php?route=95003&amp;width=100%&amp;height=600&amp;hl=en&amp;ie=UTF8&amp;t=&amp;z=13&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"><a href="https://www.mapsdirections.info/en/draw-route-google-maps/">Draw a route map</a> on <a href="https://www.mapsdirections.info/en/">Maps Directions</a></iframe></div><br />
+
+<h3>Runkoreitti 3</h3>   
+<div style="width: 100%"><iframe width="100%" height="600" src="https://www.mapsdirections.info/en/draw-route-google-maps/myMap.php?route=95012&amp;width=100%&amp;height=600&amp;hl=en&amp;ie=UTF8&amp;t=&amp;z=13&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"><a href="https://www.mapsdirections.info/en/draw-route-google-maps/">Draw a route map</a> on <a href="https://www.mapsdirections.info/en/">Maps Directions</a></iframe></div><br />    
+    
+<h3>Runkoreitti 4</h3>
+<div style="width: 100%"><iframe width="100%" height="600" src="https://www.mapsdirections.info/en/draw-route-google-maps/myMap.php?route=95005&amp;width=100%&amp;height=600&amp;hl=en&amp;ie=UTF8&amp;t=&amp;z=13&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"><a href="https://www.mapsdirections.info/en/draw-route-google-maps/">Draw a route map</a> on <a href="https://www.mapsdirections.info/en/">Maps Directions</a></iframe></div><br />   
+
+<div style="width:100%;height:300px;">
+<h3>Sources and Data</h3>
+Traffic data<br>
+<a href="https://extranet.liikennevirasto.fi/webgis-sovellukset/webgis/template.html?config=liikenne">https://extranet.liikennevirasto.fi/webgis-sovellukset/webgis/template.html?config=liikenne</a><br>
+<br>    
+Population in Lieksa per square kilometer<br>
+<a href="http://www.stat.fi/tup/rajapintapalvelut/vaestoruutuaineisto_1km.html">http://www.stat.fi/tup/rajapintapalvelut/vaestoruutuaineisto_1km.html</a><br>
+<br>
+Population in Northern Karelia by age 2015<br>
+<a href="http://www.stat.fi/tup/kunnat/kuntatiedot/422.html">http://www.stat.fi/tup/kunnat/kuntatiedot/422.html</a><br>
+<br>
+Google Maps APIs <br>
+<a href="https://developers.google.com/maps/">https://developers.google.com/maps/</a><br>
+<br>
+</div> 
+
+<footer id="map" style="width:100%;height:100%;background:lightgrey">
+<h3>The enthusiaastic team behind Rur.ai!</h3>
+<br>
+Stella Tuovinen, Developer<br>
+Ville Lehto, Analyst<br>
+Kasimir Hellman, Designer<br>
+</footer>     
+    
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdNmwSmlCzbztI9UWhggP-ljFkZ_dvnrM&callback=myMap"></script>
+
+</body>
+</html>
+
+
+
